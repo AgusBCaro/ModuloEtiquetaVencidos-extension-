@@ -50,7 +50,7 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_account_invoice_filter"/>
         <field name="arch" type="xml">
-            <xpath expr="//filter[@name='unpaid']" position="after">
+            <xpath expr="//search" position="inside">
                 <filter name="overdue_90_days" 
                         string="Vencidas (> 90 días)" 
                         domain="[('is_overdue_90', '=', True)]"/>
