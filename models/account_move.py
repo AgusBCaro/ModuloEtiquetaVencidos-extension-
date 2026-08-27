@@ -29,8 +29,8 @@ class AccountMove(models.Model):
     def _compute_is_overdue_90(self):
         today = date.today()
         for move in self:
-            # Evaluar facturas publicadas (posted) impagas o parcialmente pagadas
-            if move.state == 'posted' and move.payment_state in ('not_paid', 'partial'):
+            # Evaluar facturas impagas o parcialmente pagadas (excluyendo borradores)
+            if move.state != 'draft' and move.payment_state in ('not_paid', 'partial'):
                 # Usar fecha de vencimiento o respaldar con fecha de factura
                 due_date = move.invoice_date_due or move.invoice_date
                 if due_date:
@@ -50,7 +50,7 @@ class AccountMove(models.Model):
         is_true = (operator in ('=', '==') and value is True) or (operator in ('!=', '<>') and value is False)
 
         domain = [
-            ('state', '=', 'posted'),
+            ('state', '!=', 'draft'),
             ('payment_state', 'in', ('not_paid', 'partial')),
             '|',
             '&', ('invoice_date_due', '!=', False), ('invoice_date_due', '<', limit_date),
