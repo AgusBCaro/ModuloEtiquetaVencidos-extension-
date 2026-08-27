@@ -12,7 +12,7 @@
                 <field name="overdue_badge_status" 
                        widget="badge" 
                        decoration-danger="overdue_badge_status == 'vencida'" 
-                       invisible="is_overdue_90 == False"
+                       attrs="{'invisible': [('is_overdue_90', '=', False)]}"
                        optional="show" 
                        string="Mora (+90d)"/>
             </xpath>
@@ -34,7 +34,7 @@
                 <field name="overdue_badge_status" 
                        widget="badge" 
                        decoration-danger="overdue_badge_status == 'vencida'" 
-                       invisible="is_overdue_90 == False"
+                       attrs="{'invisible': [('is_overdue_90', '=', False)]}"
                        optional="show" 
                        string="Mora (+90d)"/>
             </xpath>
